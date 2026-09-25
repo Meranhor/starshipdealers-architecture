@@ -3,13 +3,16 @@
 Case study of a peer-to-peer marketplace with escrow-protected payments that I
 designed, built and operate on my own.
 
-**Live:** [www.starshipdealers.com](https://www.starshipdealers.com) — in production since 1 November 2025
-**Role:** sole designer, developer and operator
-**Size:** 28 Django apps, ~200,000 lines of Python, ~4,000 tests, ~310 technical documents
+**Live:** [www.starshipdealers.com](https://www.starshipdealers.com) — in production since 1 November 2025\
+**Role:** sole designer, developer and operator — August 2025 to today, 640+ commits\
+**Size:** 28 Django apps · ~375,000 lines of code (212,000 Python · 90,000 HTML templates · 53,000 CSS · 18,000 JavaScript)\
+**Depth:** 11,800+ functions · 2,200+ classes · 92 Celery tasks · ~4,000 tests · ~310 technical documents
 
 > **No source code here.** The platform runs in production and moves real
 > money, so the repository stays private. This document describes how it is
 > built. Read access on request.
+
+![StarShipDealers landing page](docs/05-landing-page.png)
 
 ## The problem
 
@@ -80,6 +83,11 @@ cart → order → payment → escrow → delivery with proof → acceptance (24
 - A dispute escalates the ticket and **freezes the payout** until it is
   resolved.
 
+| | |
+|---|---|
+| ![Cart with escrow terms](docs/02-escrow-order.png) | ![Seller storefront](docs/04-seller-storefront.png) |
+| Cart: escrow fee and delivery terms shown before payment | Seller storefront with verified identity and escrow badges |
+
 ## Technical decisions
 
 | Decision | Why | Trade-off |
@@ -119,6 +127,9 @@ cart → order → payment → escrow → delivery with proof → acceptance (24
   limiting.
 - **Seller KYC**: two-step wizard, private storage, magic-byte validation.
   Phone verification through Twilio Verify.
+
+  ![Seller KYC, document step](docs/03-seller-kyc-2.png)
+
 - Content Security Policy with nonces, IP allow/deny lists, bot detection and
   IDOR protection.
 - Secrets injected as environment variables; webhooks fail closed.
@@ -159,6 +170,10 @@ Figures as of 16 September 2026.
 | Languages | English, French, Brazilian Portuguese |
 
 Modest volumes, real payments, real users.
+
+![Admin KPI dashboard, financial figures blurred](docs/01-admin-kpi.png)
+
+*Back-office KPI dashboard. Financial figures are blurred on purpose.*
 
 ## Stack
 
